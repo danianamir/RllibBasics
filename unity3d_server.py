@@ -131,8 +131,11 @@ if __name__ == "__main__":
                 SERVER_ADDRESS,
                 args.port + ioctx.worker_index - (1 if ioctx.worker_index > 0 else 0),
             )
+
+            print("..........................................................................................policy server initialized")
         # No InputReader (PolicyServerInput) needed.
         else:
+            print("..............................................................................................policy server not initialized")
             return None
 
     # Get the multi-agent policies dict and agent->policy
