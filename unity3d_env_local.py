@@ -99,6 +99,18 @@ parser.add_argument(
     help="The DL framework specifier.",
 )
 
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     ray.init()
 
@@ -116,6 +128,14 @@ if __name__ == "__main__":
     # Get policies (different agent types; "behaviors" in MLAgents) and
     # the mappings from individual agents to Policies.
     policies, policy_mapping_fn = Unity3DEnv.get_policy_configs_for_game(args.env)
+
+
+
+
+
+
+
+
 
     config = (
         PPOConfig()
@@ -143,10 +163,21 @@ if __name__ == "__main__":
             clip_param=0.2,
             model={"fcnet_hiddens": [512, 512]},
         )
-        .multi_agent(policies=policies, policy_mapping_fn=policy_mapping_fn)
+        #.multi_agent(policies=policies, policy_mapping_fn=policy_mapping_fn)
         # Use GPUs iff `RLLIB_NUM_GPUS` env var set to > 0.
         .resources(num_gpus=int(os.environ.get("RLLIB_NUM_GPUS", "0")))
     )
+
+
+
+
+
+
+
+
+
+
+
 
     # Switch on Curiosity based exploration for Pyramids env
     # (not solvable otherwise).
@@ -183,6 +214,15 @@ if __name__ == "__main__":
         "timesteps_total": args.stop_timesteps,
         "episode_reward_mean": args.stop_reward,
     }
+
+
+
+
+
+
+
+
+
 
     # Run the experiment.
     results = tune.Tuner(
