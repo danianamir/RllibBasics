@@ -30,6 +30,7 @@ from ray.rllib.algorithms.ppo import PPOConfig
 from ray.rllib.env.wrappers.unity3d_env import Unity3DEnv
 from ray.rllib.utils.test_utils import check_learning_achieved
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "--env",
@@ -100,17 +101,6 @@ parser.add_argument(
 )
 
 
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     ray.init()
 
@@ -120,22 +110,16 @@ if __name__ == "__main__":
         "unity3d",
         lambda c: Unity3DEnv(
             file_name=c["file_name"],
-            no_graphics=(args.env != "VisualHallway" and c["file_name"] is not None),
+            no_graphics=(
+                args.env != "VisualHallway" and c["file_name"] is not None),
             episode_horizon=c["episode_horizon"],
         ),
     )
 
     # Get policies (different agent types; "behaviors" in MLAgents) and
     # the mappings from individual agents to Policies.
-    policies, policy_mapping_fn = Unity3DEnv.get_policy_configs_for_game(args.env)
-
-
-
-
-
-
-
-
+    policies, policy_mapping_fn = Unity3DEnv.get_policy_configs_for_game(
+        args.env)
 
     config = (
         PPOConfig()
@@ -163,21 +147,10 @@ if __name__ == "__main__":
             clip_param=0.2,
             model={"fcnet_hiddens": [512, 512]},
         )
-        #.multi_agent(policies=policies, policy_mapping_fn=policy_mapping_fn)
+        # .multi_agent(policies=policies, policy_mapping_fn=policy_mapping_fn)
         # Use GPUs iff `RLLIB_NUM_GPUS` env var set to > 0.
         .resources(num_gpus=int(os.environ.get("RLLIB_NUM_GPUS", "0")))
     )
-
-
-
-
-
-
-
-
-
-
-
 
     # Switch on Curiosity based exploration for Pyramids env
     # (not solvable otherwise).
@@ -214,15 +187,6 @@ if __name__ == "__main__":
         "timesteps_total": args.stop_timesteps,
         "episode_reward_mean": args.stop_reward,
     }
-
-
-
-
-
-
-
-
-
 
     # Run the experiment.
     results = tune.Tuner(
