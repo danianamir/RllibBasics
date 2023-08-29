@@ -63,6 +63,16 @@ class UnityToGymWrapper(gym.Env):
         self.game_over = False
         self._allow_multiple_obs = allow_multiple_obs
 
+
+
+
+
+
+
+
+
+
+
         # Check brain configuration
         if len(self._env.behavior_specs) != 1:
             raise UnityGymException(
@@ -96,11 +106,23 @@ class UnityToGymWrapper(gym.Env):
                 "there are no visual observations) will be provided in the observation."
             )
 
+
+
+
+
+
         # Check for number of agents in scene.
         self._env.reset()
         decision_steps, _ = self._env.get_steps(self.name)
         self._check_agents(len(decision_steps))
         self._previous_decision_step = decision_steps
+
+
+
+
+
+
+
 
         # Set action spaces
         if self.group_spec.action_spec.is_discrete():
@@ -134,6 +156,12 @@ class UnityToGymWrapper(gym.Env):
         if action_space_seed is not None:
             self._action_space.seed(action_space_seed)
 
+
+
+
+
+
+
         # Set observations space
         list_spaces: List[gym.Space] = []
         shapes = self._get_vis_obs_shape()
@@ -150,6 +178,14 @@ class UnityToGymWrapper(gym.Env):
             self._observation_space = spaces.Tuple(list_spaces)
         else:
             self._observation_space = list_spaces[0]  # only return the first one
+
+
+
+
+
+
+
+
 
     def reset(self) -> Union[List[np.ndarray], np.ndarray]:
         """Resets the state of the environment and returns an initial observation.
