@@ -40,6 +40,13 @@ SERVER_ADDRESS = "localhost"
 SERVER_PORT = 9900
 CHECKPOINT_FILE = "last_checkpoint_{}.out"
 
+
+
+
+
+
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "--run",
@@ -97,6 +104,17 @@ parser.add_argument(
     action="store_true",
     help="Whether to load the Policy weights from a previous checkpoint",
 )
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     args = parser.parse_args()

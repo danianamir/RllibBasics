@@ -36,6 +36,14 @@ from ray.rllib.env.wrappers.unity3d_env import Unity3DEnv
 SERVER_ADDRESS = "localhost"
 SERVER_PORT = 9900
 
+
+
+
+
+
+
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "--game",
@@ -88,6 +96,18 @@ parser.add_argument(
     help="Stop once the specified reward is reached.",
 )
 
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     args = parser.parse_args()
 
@@ -99,10 +119,13 @@ if __name__ == "__main__":
         update_interval=args.update_interval_local_mode,
     )
 
+    print("start the client to send information to server")
     # Start and reset the actual Unity3DEnv (either already running Unity3D
     # editor or a binary (game) to be started automatically).
     env = Unity3DEnv(file_name=args.game, episode_horizon=args.horizon)
+    print("the environmet recevied")
     obs, info = env.reset()
+    print(obs)
     eid = client.start_episode(training_enabled=not args.no_train)
 
     # Keep track of the total reward per episode.
