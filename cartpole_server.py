@@ -42,6 +42,14 @@ SERVER_BASE_PORT = 9900  # + worker-idx - 1
 CHECKPOINT_FILE = "last_checkpoint_{}.out"
 
 
+
+
+
+
+
+
+
+
 def get_cli_args():
     """Create CLI parser and return parsed arguments"""
     parser = argparse.ArgumentParser()
@@ -129,6 +137,27 @@ def get_cli_args():
     args = parser.parse_args()
     print(f"Running with following CLI args: {args}")
     return args
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":

@@ -106,15 +106,19 @@ if __name__ == "__main__":
         if args.off_policy:
             action = env.action_space.sample()
             client.log_action(eid, obs, action)
-        # Compute an action locally or remotely (on server).
+        # Compute an action (on_policy) (locally or remotely (on server)).
         # No need to log it here as the action
         else:
             action = client.get_action(eid, obs)
 
+
+
+
+
+
         # Perform a step in the external simulator (env).
         obs, reward, terminated, truncated, info = env.step(action)
         rewards += reward
-
         # Log next-obs, rewards, and infos.
         client.log_returns(eid, reward, info=info)
 
